@@ -108,9 +108,10 @@ public class PandaController : MonoBehaviour
     public void Dead()
     {
         animator.SetTrigger(AnimDeadTriggerHash);
-
         sugarMeter.ChangeSugar(giveSugar);
         Destroy(gameObject,1);
+        isDead = true;
+        rb2D.MovePosition(gameObject.transform.position);
     }
 
 }
