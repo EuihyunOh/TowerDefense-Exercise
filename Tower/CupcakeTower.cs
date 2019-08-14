@@ -136,6 +136,7 @@ public class CupcakeTower : MonoBehaviour
         //비용 증가
         buyPrice += 5;
         upgradingCost += 10;
+        TowerInfo.UpdateInfo();
     }
 
     /*

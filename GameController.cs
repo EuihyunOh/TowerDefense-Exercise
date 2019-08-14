@@ -46,6 +46,7 @@ public class GameController : MonoBehaviour
                         selectedTower.outlineActive(true);
 
                         TradeCupcakeTowers.setSelectTower(selectedTower);
+                        TowerInfo.UpdateInfo();
                     }
                 }
             }

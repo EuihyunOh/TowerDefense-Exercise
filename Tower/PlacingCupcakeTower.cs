@@ -31,6 +31,7 @@ public class PlacingCupcakeTower : MonoBehaviour
             GetComponent<CupcakeTower>().outlineActive(true);
             gameObject.AddComponent<BoxCollider2D>();
 
+            TowerInfo.UpdateInfo();
             Destroy(this);        
         }
 
