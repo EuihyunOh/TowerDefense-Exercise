@@ -13,6 +13,6 @@ public class TradeCupcakeTowers_Selling : TradeCupcakeTowers
         }
 
         sugarMeter.ChangeSugar(currentSelectTower.sellPrice);
-        Destroy(currentSelectTower);
+        Destroy(currentSelectTower.gameObject);
     }
 }

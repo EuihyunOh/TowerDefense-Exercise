@@ -28,6 +28,7 @@ public class PlacingCupcakeTower : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && deployAreaCheck.isPointerOnAllowedArea())
         {
             GetComponent<CupcakeTower>().enabled = true;
+            GetComponent<CupcakeTower>().outlineActive(true);
             gameObject.AddComponent<BoxCollider2D>();
 
             Destroy(this);        

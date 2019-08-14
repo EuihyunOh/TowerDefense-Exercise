@@ -19,6 +19,9 @@ public class PandaController : MonoBehaviour
     Rigidbody2D rb2D;
     GameController gameController;
     Waypoint firstWaypoint;
+    SugarMeterScript sugarMeter;
+
+    bool isDead = false;
 
     //애니메이션 해시
     protected int AnimRunTriggerHash = Animator.StringToHash("Run");
@@ -37,6 +40,7 @@ public class PandaController : MonoBehaviour
 
         animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
+        sugarMeter = FindObjectOfType<SugarMeterScript>();
         
 
     }
@@ -57,7 +61,7 @@ public class PandaController : MonoBehaviour
         {
             currentWaypoint = currentWaypoint.GetNextWaypoint();
         }
-        else
+        else if(!isDead)
         {
             MoveTo(currentWaypoint.GetPosition());
         }
@@ -93,14 +97,19 @@ public class PandaController : MonoBehaviour
         health -= damage;
         if (health > 0)
         {
-            animator.SetTrigger(AnimHitTriggerHash);
+            animator.SetTrigger(AnimHitTriggerHash);            
+        }
+        else if (!isDead)
+        {
+            Dead();
             gameController.EnemyGoToHell();
         }
-        else Dead();
     }
     public void Dead()
     {
         animator.SetTrigger(AnimDeadTriggerHash);
+
+        sugarMeter.ChangeSugar(giveSugar);
         Destroy(gameObject,1);
     }
 
