@@ -9,7 +9,9 @@ public class TradeCupcakeTowers_Upgrading : TradeCupcakeTowers
     {
         if(currentSelectTower.isUpgradable && currentSelectTower.upgradingCost <= sugarMeter.getSugarAmount())
         {
-            sugarMeter.ChangeSugar(-currentSelectTower.upgradingCost);
+            int upgradeCost = -currentSelectTower.upgradingCost;
+            sugarMeter.ChangeSugar(upgradeCost);
+            currentSelectTower.ScoreEffect(upgradeCost);
             currentSelectTower.Upgrade();
         }
     }

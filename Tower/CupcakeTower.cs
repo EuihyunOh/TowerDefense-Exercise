@@ -14,7 +14,9 @@ public class CupcakeTower : MonoBehaviour
     public int initialCost;
     public int upgradingCost;
     public int buyPrice;
-    public int sellPrice;
+    [System.NonSerialized]public int sellPrice;
+
+    public GameObject priceEffect;
 
     //내부 파라미터
     private float shotTime;
@@ -109,6 +111,13 @@ public class CupcakeTower : MonoBehaviour
     }
     */
 
+    public void ScoreEffect(int price)
+    {
+        Transform effectPosition = transform.Find("Price").transform;
+        GameObject effect = Instantiate(priceEffect, effectPosition.position, Quaternion.identity);        
+        effect.GetComponent<ScoreEffect>().ScoreFadeoutUp(price, effectPosition);
+    }
+
     public void Upgrade()
     {
         //업그레이드 가능한지 체크
@@ -134,8 +143,9 @@ public class CupcakeTower : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = upgradeSprites[upgradeLevel];
 
         //비용 증가
-        buyPrice += 5;
+        //buyPrice += 5;
         upgradingCost += 10;
+        sellPrice += 5;
         TowerInfo.UpdateInfo();
     }
 

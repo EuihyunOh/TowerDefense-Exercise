@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 
@@ -11,6 +12,7 @@ public class PandaController : MonoBehaviour
     public float health;
     public int cakeEatenPerBite;
     public int giveSugar = 10;
+    public GameObject scoreEffect;
 
     Waypoint currentWaypoint;
     [SerializeField] const float changeDist = 0.001f;
@@ -20,6 +22,7 @@ public class PandaController : MonoBehaviour
     GameController gameController;
     Waypoint firstWaypoint;
     SugarMeterScript sugarMeter;
+    Transform scoreEffectPart;
 
     bool isDead = false;
 
@@ -41,7 +44,7 @@ public class PandaController : MonoBehaviour
         animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
         sugarMeter = FindObjectOfType<SugarMeterScript>();
-        
+        scoreEffectPart = transform.Find("Score");
 
     }
 
@@ -91,6 +94,13 @@ public class PandaController : MonoBehaviour
         rb2D.MovePosition(Vector2.MoveTowards(transform.position, destination, step));
         animator.SetTrigger(AnimRunTriggerHash);
     }
+
+    void ScoreEffect()
+    {
+        GameObject effect = Instantiate(scoreEffect,scoreEffectPart.position, Quaternion.identity) as GameObject;
+        effect.GetComponent<ScoreEffect>().ScoreFadeoutUp(giveSugar, scoreEffectPart);
+    }
+
     //애니메이션
     public void Hit(float damage)
     {
@@ -103,6 +113,7 @@ public class PandaController : MonoBehaviour
         {
             Dead();
             gameController.EnemyGoToHell();
+            ScoreEffect();
         }
     }
     public void Dead()
